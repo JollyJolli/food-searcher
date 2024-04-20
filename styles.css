@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #141221; /* Azul oscuro noche */
+    color: #fff;
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #8A2BE2; /* Morado sexy */
+}
+
+/* Estilos para la barra de búsqueda */
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 6px; /* Reducir el tamaño del padding */
+    font-size: 14px; /* Reducir el tamaño de la fuente */
+    border: none;
+    border-radius: 4px;
+    background-color: #333; /* Color de fondo oscuro */
+    color: white; /* Color del texto blanco */
+}
+
+#searchButton, #categoriesButton {
+    padding: 8px;
+    background-color: #8A2BE2; /* Color morado */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#searchButton:hover, #categoriesButton:hover {
+    background-color: #800080; /* Cambiar el color morado al tono más oscuro al pasar el ratón */
+}
+
+#categoriesButton {
+    margin-left: 8px; /* Espacio entre el botón de búsqueda y el botón de categorías */
+}
+
+/* Estilos para el icono del loader */
+#loader {
+    color: #8A2BE2; /* Color morado para el icono */
+    font-size: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Ocultar el loader por defecto */
+}
+
+#loader i {
+    color: #8A2BE2; /* Color morado para el icono */
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card {
+    width: calc(30% - 20px); /* Para dejar espacio entre las tarjetas */
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: #222; /* Gris medio */
+    color: #fff;
+    margin: 10px; /* Espacio entre las tarjetas */
+    display: inline-block; /* Para mostrar las tarjetas en línea */
+    vertical-align: top; /* Alinear las tarjetas en la parte superior */
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-info {
+    padding: 15px;
+}
+
+.card-info h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #8A2BE2; /* Morado sexy */
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.title {
+    color: #ebedde; /* Morado sexy */
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.instructions {
+    display: none;
+}
+
+.toggle-instructions {
+    background-color: #8A2BE2; /* Morado sexy */
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.toggle-instructions:hover {
+    background-color: #6A1B9A; /* Color morado más oscuro al pasar el mouse */
+}
+
+
+footer {
+    background-color: #333; /* Color de fondo oscuro */
+    color: white; /* Color del texto blanco */
+    padding: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: #8A2BE2; /* Color morado fuerte para el texto "Formen" */
+    text-decoration: none;
+}
