@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
                   <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
                   <div class="card-info">
                       <h3 class="title">${meal.strMeal}</h3>
-                      <p><strong class="subtitle">ID de la Comida:</strong> ${meal.idMeal}</p>
                       <p class="subtitle"><i class="fas fa-utensils"></i> Categoría:</p>
                       <p>${meal.strCategory}</p>
                       <p class="subtitle"><i class="fas fa-globe-americas"></i> Área:</p>
                       <p>${meal.strArea}</p>
+                    <p><strong class="subtitle">ID de la Comida:</strong> ${meal.idMeal}</p>
                       <p class="subtitle"><i class="fas fa-book-open"></i> Instrucciones:</p>
                       <p class="instructions">${meal.strInstructions}</p>
                       <button class="toggle-instructions">Ver Instrucciones</button>
@@ -148,11 +148,11 @@ document.addEventListener('DOMContentLoaded', function() {
                   <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
                   <div class="card-info">
                       <h3 class="title">${meal.strMeal}</h3>
-                      <p><strong class="subtitle">ID de la Comida:</strong> ${meal.idMeal}</p>
                       <p class="subtitle"><i class="fas fa-utensils"></i> Categoría:</p>
                       <p>${meal.strCategory}</p>
                       <p class="subtitle"><i class="fas fa-globe-americas"></i> Área:</p>
                       <p>${meal.strArea}</p>
+                    <p><strong class="subtitle">ID de la Comida:</strong> ${meal.idMeal}</p>
                       <p class="subtitle"><i class="fas fa-book-open"></i> Instrucciones:</p>
                       <p class="instructions">${meal.strInstructions}</p>
                       <button class="toggle-instructions">Ver Instrucciones</button>
