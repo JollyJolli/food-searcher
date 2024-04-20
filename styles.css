@@ -1,3 +1,4 @@
+/* Estilos generales */
 body {
     margin: 0;
     padding: 0;
@@ -16,6 +17,11 @@ h1 {
     font-size: 2.5em;
     margin-bottom: 30px;
     color: #8A2BE2; /* Morado sexy */
+}
+
+h4 {
+   text-align: center;
+  color: #8A2BE2; /* Morado sexy */
 }
 
 /* Estilos para la barra de búsqueda */
@@ -71,8 +77,9 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
+/* Estilos para las tarjetas */
 .card {
-    width: calc(30% - 20px); /* Para dejar espacio entre las tarjetas */
+    width: calc(33.33% - 20px); /* Para dejar espacio entre las tarjetas */
     margin-bottom: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -97,14 +104,8 @@ h1 {
     margin-bottom: 10px;
 }
 
-.subtitle {
+.subtitle, .title {
     color: #8A2BE2; /* Morado sexy */
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-.title {
-    color: #ebedde; /* Morado sexy */
     font-weight: bold;
     margin-top: 15px;
 }
@@ -127,7 +128,6 @@ h1 {
     background-color: #6A1B9A; /* Color morado más oscuro al pasar el mouse */
 }
 
-
 footer {
     background-color: #333; /* Color de fondo oscuro */
     color: white; /* Color del texto blanco */
@@ -138,4 +138,35 @@ footer {
 footer a {
     color: #8A2BE2; /* Color morado fuerte para el texto "Formen" */
     text-decoration: none;
+}
+
+/* Media queries para hacer responsive */
+@media only screen and (max-width: 1200px) {
+    .container {
+        width: 90%;
+    }
+
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .container {
+        width: 100%;
+    }
+
+    .card {
+        width: calc(100% - 20px);
+    }
 }
