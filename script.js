@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mostrar pantalla de carga
     const loader = document.getElementById('loader');
-    loader.style.display = 'block'; // Ocultamos el loader al principio
+    loader.style.display = 'block'; // Ponemos el loader al principio
 
     // Función para obtener una letra aleatoria entre 'a' y 'z'
     function getRandomLetter() {
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function getRandomMeals() {
         const meals = [];
         try {
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 10; i++) {
                 const randomLetter = getRandomLetter();
                 const response = await fetch(`${baseURL}${randomLetter}`);
                 const data = await response.json();
