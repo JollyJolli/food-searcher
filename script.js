@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     const baseURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const categoriesButton = document.getElementById('categoriesButton');
+    const loader = document.getElementById('loader');
+    const modal = document.getElementById('instructionsModal');
+    const closeModal = document.querySelector('.close');
+    const modalMealTitle = document.getElementById('modalMealTitle');
+    const modalMealInstructions = document.getElementById('modalMealInstructions');
 
     // Mostrar pantalla de carga
-    const loader = document.getElementById('loader');
-    loader.style.display = 'block'; // Ponemos el loader al principio
+    loader.style.display = 'block';
 
-    // Función para obtener una letra aleatoria entre 'a' y 'z'
-    function getRandomLetter() {
-        const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-        return alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-    }
-
-    // Función para hacer una solicitud a la API y obtener recetas aleatorias
     async function getRandomMeals() {
         const meals = [];
         try {
@@ -28,165 +28,160 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Función para mostrar las recetas en tarjetas
-  // Función para mostrar las recetas en tarjetas
-  async function displayRandomMeals() {
-      const meals = await getRandomMeals();
-      const searchResults = document.getElementById('searchResults');
-      meals.forEach(meal => {
-          const card = `
-              <div class="card">
-                  <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                  <div class="card-info">
-                      <h3 class="title">${meal.strMeal}</h3>
-                      <p class="subtitle"><i class="fas fa-utensils"></i> Categoría:</p>
-                      <p>${meal.strCategory}</p>
-                      <p class="subtitle"><i class="fas fa-globe-americas"></i> Área:</p>
-                      <p>${meal.strArea}</p>
-                    <p><strong class="subtitle">ID de la Comida:</strong> ${meal.idMeal}</p>
-                      <p class="subtitle"><i class="fas fa-book-open"></i> Instrucciones:</p>
-                      <p class="instructions">${meal.strInstructions}</p>
-                      <button class="toggle-instructions">Ver Instrucciones</button>
-                  </div>
-              </div>
-          `;
-          searchResults.innerHTML += card;
-      });
+    function getRandomLetter() {
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+        return alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+    }
 
-      // Ocultar pantalla de carga
-      loader.style.display = 'none';
+    async function displayRandomMeals() {
+        const meals = await getRandomMeals();
+        const searchResults = document.getElementById('searchResults');
+        searchResults.innerHTML = '';
 
-      // Agregar event listener a los botones Ver Instrucciones
-      document.querySelectorAll('.toggle-instructions').forEach(button => {
-          button.addEventListener('click', function() {
-              const instructions = this.previousElementSibling;
-              if (instructions.style.display === 'none') {
-                  instructions.style.display = 'block';
-                  this.textContent = 'Ocultar Instrucciones';
-              } else {
-                  instructions.style.display = 'none';
-                  this.textContent = 'Ver Instrucciones';
-              }
-          });
-      });
-  }
+        meals.forEach(meal => {
+            const mealCard = document.createElement('div');
+            mealCard.classList.add('card');
 
+            mealCard.innerHTML = `
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                <div class="card-info">
+                    <h3 class="title">${meal.strMeal}</h3>
+                    <p class="subtitle">Categoría: ${meal.strCategory}</p>
+                    <button class="toggle-instructions" data-id="${meal.idMeal}">Ver Instrucciones</button>
+                </div>
+            `;
 
-    displayRandomMeals();
+            searchResults.appendChild(mealCard);
+        });
 
-    // Función para manejar la búsqueda cuando se presiona Enter o se hace clic en el botón de búsqueda
-    document.getElementById('searchInput').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            searchMeals();
+        loader.style.display = 'none'; // Ocultar pantalla de carga
+
+        const instructionButtons = document.querySelectorAll('.toggle-instructions');
+        instructionButtons.forEach(button => {
+            button.addEventListener('click', async function() {
+                const mealId = this.getAttribute('data-id');
+                const mealDetails = await getMealDetails(mealId);
+
+                modalMealTitle.textContent = mealDetails.strMeal;
+                modalMealInstructions.textContent = mealDetails.strInstructions;
+
+                modal.style.display = 'block'; // Mostrar el modal
+            });
+        });
+    }
+
+    async function getMealDetails(mealId) {
+        try {
+            const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
+            const data = await response.json();
+            return data.meals[0];
+        } catch (error) {
+            console.error('Error al obtener detalles de la receta:', error);
+        }
+    }
+
+    // Cerrar el modal cuando el usuario hace clic en la "X"
+    closeModal.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    // Cerrar el modal cuando el usuario hace clic fuera del contenido del modal
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+    // Función para buscar comidas por nombre
+    async function searchMealsByName(query) {
+        try {
+            const response = await fetch(`${baseURL}${query}`);
+            const data = await response.json();
+            if (data.meals) {
+                displayMeals(data.meals);
+            } else {
+                displayErrorMessage("No se encontraron resultados para tu búsqueda.");
+            }
+        } catch (error) {
+            console.error('Error al buscar comidas:', error);
+            displayErrorMessage("Error al buscar comidas. Intenta nuevamente.");
+        }
+    }
+
+    // Mostrar los resultados de búsqueda
+    function displayMeals(meals) {
+        const searchResults = document.getElementById('searchResults');
+        searchResults.innerHTML = '';
+
+        meals.forEach(meal => {
+            const mealCard = document.createElement('div');
+            mealCard.classList.add('card');
+
+            mealCard.innerHTML = `
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                <div class="card-info">
+                    <h3 class="title">${meal.strMeal}</h3>
+                    <p class="subtitle">Categoría: ${meal.strCategory}</p>
+                    <button class="toggle-instructions" data-id="${meal.idMeal}">Ver Instrucciones</button>
+                </div>
+            `;
+
+            searchResults.appendChild(mealCard);
+        });
+
+        const instructionButtons = document.querySelectorAll('.toggle-instructions');
+        instructionButtons.forEach(button => {
+            button.addEventListener('click', async function() {
+                const mealId = this.getAttribute('data-id');
+                const mealDetails = await getMealDetails(mealId);
+
+                modalMealTitle.textContent = mealDetails.strMeal;
+                modalMealInstructions.textContent = mealDetails.strInstructions;
+
+                modal.style.display = 'block'; // Mostrar el modal
+            });
+        });
+    }
+
+    // Mostrar mensaje de error si no hay resultados
+    function displayErrorMessage(message) {
+        const searchResults = document.getElementById('searchResults');
+        searchResults.innerHTML = `<p>${message}</p>`;
+    }
+
+    // Función para buscar categorías de comida
+    async function searchMealsByCategory(category) {
+        try {
+            const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+            const data = await response.json();
+            if (data.meals) {
+                displayMeals(data.meals);
+            } else {
+                displayErrorMessage("No se encontraron resultados para esta categoría.");
+            }
+        } catch (error) {
+            console.error('Error al buscar categorías:', error);
+            displayErrorMessage("Error al buscar categorías. Intenta nuevamente.");
+        }
+    }
+
+    // Buscar cuando se presiona el botón de búsqueda
+    searchButton.addEventListener('click', function() {
+        const query = searchInput.value.trim();
+        if (query) {
+            loader.style.display = 'block'; // Mostrar el loader
+            searchMealsByName(query);
+            loader.style.display = 'none'; // Ocultar el loader después de la búsqueda
         }
     });
 
-    document.getElementById('searchButton').addEventListener('click', function() {
-        searchMeals();
+    // Mostrar comidas aleatorias al cargar la página
+    displayRandomMeals();
+
+    // Botón de categorías
+    categoriesButton.addEventListener('click', function() {
+        const categories = ['Beef', 'Chicken', 'Dessert', 'Vegetarian', 'Vegan', 'Seafood'];
+        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+        searchMealsByCategory(randomCategory);
     });
-
-    // Función para realizar la búsqueda de comidas
-  // Función para realizar la búsqueda de comidas
-  // Función para realizar la búsqueda de comidas
-  async function searchMeals() {
-      const searchTerm = document.getElementById('searchInput').value.trim();
-      if (searchTerm === '') {
-          alert('Por favor ingresa una búsqueda.');
-          return;
-      }
-
-      try {
-          // Verificar si el término de búsqueda es un número (ID)
-          if (!isNaN(searchTerm)) {
-              // Si el término de búsqueda es un número, buscar por ID
-              const responseById = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${encodeURIComponent(searchTerm)}`);
-              const dataById = await responseById.json();
-              if (dataById.meals === null) {
-                  alert('No se encontraron resultados.');
-                  return;
-              }
-              displaySearchResults(dataById.meals);
-              return;
-          }
-
-          // Verificar si el término de búsqueda es una categoría
-          const categoriesResponse = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
-          const categoriesData = await categoriesResponse.json();
-          const category = categoriesData.categories.find(cat => cat.strCategory.toLowerCase() === searchTerm.toLowerCase());
-          if (category) {
-              const categoryResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${encodeURIComponent(category.strCategory)}`);
-              const categoryData = await categoryResponse.json();
-              if (categoryData.meals === null) {
-                  alert('No se encontraron resultados para esta categoría.');
-                  return;
-              }
-              displaySearchResults(categoryData.meals);
-              return;
-          }
-
-          // Si no es ni un número ni una categoría, buscar por nombre
-          const response = await fetch(`${baseURL}${encodeURIComponent(searchTerm)}`);
-          const data = await response.json();
-          if (data.meals === null) {
-              alert('No se encontraron resultados.');
-              return;
-          }
-          displaySearchResults(data.meals);
-      } catch (error) {
-          console.error('Error al buscar comidas:', error);
-      }
-  }
-
-
-  // Función para mostrar los resultados de búsqueda en tarjetas
-  function displaySearchResults(meals) {
-      const searchResults = document.getElementById('searchResults');
-      searchResults.innerHTML = ''; // Limpiamos los resultados anteriores
-      meals.forEach(meal => {
-          const card = `
-              <div class="card">
-                  <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                  <div class="card-info">
-                      <h3 class="title">${meal.strMeal}</h3>
-                      <p class="subtitle"><i class="fas fa-utensils"></i> Categoría:</p>
-                      <p>${meal.strCategory}</p>
-                      <p class="subtitle"><i class="fas fa-globe-americas"></i> Área:</p>
-                      <p>${meal.strArea}</p>
-                    <p><strong class="subtitle">ID de la Comida:</strong> ${meal.idMeal}</p>
-                      <p class="subtitle"><i class="fas fa-book-open"></i> Instrucciones:</p>
-                      <p class="instructions">${meal.strInstructions}</p>
-                      <button class="toggle-instructions">Ver Instrucciones</button>
-                  </div>
-              </div>
-          `;
-          searchResults.innerHTML += card;
-      });
-
-      // Agregar event listener a los botones Ver Instrucciones
-      document.querySelectorAll('.toggle-instructions').forEach(button => {
-          button.addEventListener('click', function() {
-              const instructions = this.previousElementSibling;
-              if (instructions.style.display === 'none') {
-                  instructions.style.display = 'block';
-                  this.textContent = 'Ocultar Instrucciones';
-              } else {
-                  instructions.style.display = 'none';
-                  this.textContent = 'Ver Instrucciones';
-              }
-          });
-      });
-  }
-  
-  // Función para obtener y mostrar todas las categorías disponibles
-  document.getElementById('categoriesButton').addEventListener('click', async function() {
-      try {
-          const categoriesResponse = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
-          const categoriesData = await categoriesResponse.json();
-          const categoryNames = categoriesData.categories.map(cat => cat.strCategory);
-          alert('Categorías Disponibles:\n\n' + categoryNames.join('\n'));
-      } catch (error) {
-          console.error('Error al obtener categorías:', error);
-      }
-  });
-  
 });

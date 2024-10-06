@@ -1,172 +1,252 @@
-/* Estilos generales */
-body {
+/* Global Styles */
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #141221; /* Azul oscuro noche */
-    color: #fff;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
 }
 
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 20px;
+    font-size: 16px;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: #8A2BE2;
+    display: none; /* Hidden by default */
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Container Styles */
 .container {
-    width: 80%;
-    margin: 50px auto;
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
+    padding: 20px;
 }
 
 h1 {
-    font-size: 2.5em;
-    margin-bottom: 30px;
-    color: #8A2BE2; /* Morado sexy */
+    font-size: 2.5rem;
+    color: #8A2BE2;
+    margin-bottom: 20px;
+    animation: slideIn 0.5s ease-out forwards;
 }
 
-h4 {
-   text-align: center;
-  color: #8A2BE2; /* Morado sexy */
+/* Slide In Animation */
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-/* Estilos para la barra de búsqueda */
+/* Search Section */
 .search-container {
     display: flex;
-    align-items: center;
-}
-
-#searchInput {
-    flex: 1;
-    padding: 6px; /* Reducir el tamaño del padding */
-    font-size: 14px; /* Reducir el tamaño de la fuente */
-    border: none;
-    border-radius: 4px;
-    background-color: #333; /* Color de fondo oscuro */
-    color: white; /* Color del texto blanco */
-}
-
-#searchButton, #categoriesButton {
-    padding: 8px;
-    background-color: #8A2BE2; /* Color morado */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#searchButton:hover, #categoriesButton:hover {
-    background-color: #800080; /* Cambiar el color morado al tono más oscuro al pasar el ratón */
-}
-
-#categoriesButton {
-    margin-left: 8px; /* Espacio entre el botón de búsqueda y el botón de categorías */
-}
-
-/* Estilos para el icono del loader */
-#loader {
-    color: #8A2BE2; /* Color morado para el icono */
-    font-size: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none; /* Ocultar el loader por defecto */
-}
-
-#loader i {
-    color: #8A2BE2; /* Color morado para el icono */
-    font-size: 24px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Estilos para las tarjetas */
-.card {
-    width: calc(33.33% - 20px); /* Para dejar espacio entre las tarjetas */
+    justify-content: center;
     margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    background-color: #222; /* Gris medio */
-    color: #fff;
-    margin: 10px; /* Espacio entre las tarjetas */
-    display: inline-block; /* Para mostrar las tarjetas en línea */
-    vertical-align: top; /* Alinear las tarjetas en la parte superior */
+}
+
+.search-container input[type="text"] {
+    width: 400px;
+    padding: 12px;
+    border: 2px solid #8A2BE2;
+    border-radius: 30px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-container input[type="text"]:focus {
+    border-color: #6f239d;
+    box-shadow: 0 0 5px rgba(106, 54, 156, 0.5);
+}
+
+.search-container button {
+    background-color: #8A2BE2;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-container button i {
+    margin-right: 5px;
+}
+
+.search-container button:hover {
+    background-color: #6f239d;
+    transform: translateY(-3px);
+}
+
+/* Search Results Styles */
+#searchResults {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    width: 300px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .card img {
     width: 100%;
-    border-radius: 10px 10px 0 0;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card img:hover {
+    transform: scale(1.05);
 }
 
 .card-info {
     padding: 15px;
 }
 
-.card-info h3 {
-    font-size: 1.5em;
+.title {
+    font-size: 1.5rem;
+    color: #333;
     margin-bottom: 10px;
 }
 
-.subtitle, .title {
-    color: #8A2BE2; /* Morado sexy */
+.subtitle {
+    color: #8A2BE2;
     font-weight: bold;
-    margin-top: 15px;
-}
-
-.instructions {
-    display: none;
-}
-
-.toggle-instructions {
-    background-color: #8A2BE2; /* Morado sexy */
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
     margin-top: 10px;
 }
 
-.toggle-instructions:hover {
-    background-color: #6A1B9A; /* Color morado más oscuro al pasar el mouse */
+.toggle-instructions {
+    background-color: #8A2BE2;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-footer {
-    background-color: #333; /* Color de fondo oscuro */
-    color: white; /* Color del texto blanco */
+.toggle-instructions:hover {
+    background-color: #6f239d;
+    transform: scale(1.05);
+}
+
+/* Modal Styles */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    animation: fadeIn 0.5s ease;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
     padding: 20px;
+    border-radius: 20px;
+    max-width: 80%;
+    text-align: left;
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #8A2BE2;
+    cursor: pointer;
+}
+
+/* Modal Title */
+#modalMealTitle {
+    font-size: 1.8rem;
+    color: #333;
+    animation: fadeIn 0.5s ease;
+}
+
+#modalMealInstructions {
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+/* Footer */
+footer {
     text-align: center;
+    margin-top: 50px;
+    font-size: 14px;
 }
 
 footer a {
-    color: #8A2BE2; /* Color morado fuerte para el texto "Formen" */
     text-decoration: none;
+    color: #8A2BE2;
+    transition: color 0.3s ease;
 }
 
-/* Media queries para hacer responsive */
-@media only screen and (max-width: 1200px) {
-    .container {
-        width: 90%;
+footer a:hover {
+    text-decoration: underline;
+    color: #6f239d;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .search-container input[type="text"] {
+        width: 70%;
+    }
+
+    .search-container button {
+        padding: 10px 12px;
     }
 
     .card {
-        width: calc(50% - 20px);
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .container {
-        width: 95%;
-    }
-
-    .card {
-        width: calc(50% - 20px);
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    .container {
         width: 100%;
     }
 
-    .card {
-        width: calc(100% - 20px);
+    .modal-content {
+        margin: 20% auto;
     }
 }

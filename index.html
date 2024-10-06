@@ -2,17 +2,15 @@
 <html lang="es">
   <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W9Q7QHS21"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-8W9Q7QHS21');
-  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8W9Q7QHS21');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Bienvenido a Food! - Web de Comidas</title>
-    <!-- Metadatos para SEO -->
     <meta name="description" content="¡Descubre deliciosas recetas de comida! Food es tu guía para explorar una amplia variedad de platos y cocinas de todo el mundo.">
     <meta name="keywords" content="comida, recetas, platos, cocina, gastronomía">
     <meta name="author" content="Formen">
@@ -21,30 +19,37 @@
     <meta property="og:image" content="https://www.themealdb.com/images/media/meals/wrpwuu1511786491.jpg"> 
     <meta property="og:url" content="https://food.formen.cc">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#8A2BE2"> <!-- Color morado que se usa para los subtítulos -->
+    <meta name="theme-color" content="#8A2BE2">
     <link rel="canonical" href="https://food.formen.cc">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Searcher</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/bc3d0bf176.js" crossorigin="anonymous"></script>
-</head>
-<body>
-  <div id="loader"><i class="fa-solid fa-burger"></i></div>
+  </head>
+  <body>
+    <div id="loader"><i class="fa-solid fa-burger"></i></div>
     <div class="container">
-        <h1>Food Searcher</h1>
+      <h1>Food Searcher</h1>
       <div class="search-container">
-          <input type="text" id="searchInput" placeholder="Buscar por nombre, ID o categoria...">
-          <button id="searchButton"><i class="fas fa-search"></i></button>
-          <button id="categoriesButton"><i class="fas fa-utensils"></i></button>
+        <input type="text" id="searchInput" placeholder="Buscar por nombre, ID o categoria...">
+        <button id="searchButton"><i class="fas fa-search"></i></button>
+        <button id="categoriesButton"><i class="fas fa-utensils"></i></button>
       </div>
-        <div id="searchResults"></div>
+      <div id="searchResults"></div>
     </div>
-  <h4>¡Para mas recetas buscalas!</h1>
-  <footer>
+
+    <!-- Modal for Instructions -->
+    <div id="instructionsModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalMealTitle"></h2>
+        <p id="modalMealInstructions"></p>
+      </div>
+    </div>
+
+    <h4>¡Para más recetas búscalas!</h4>
+    <footer>
       <p><span>&copy; Web made by </span><a href="https://www.formen.cc" target="_blank" style="color: #8A2BE2;">Formen</a></p>
-  </footer>
-  
+    </footer>
+
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
