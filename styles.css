@@ -8,8 +8,8 @@
 }
 
 body {
-    background-color: #f8f8f8;
-    color: #333;
+    background-color: #121212; /* Fondo oscuro */
+    color: #f8f8f8; /* Texto claro */
     padding: 20px;
     font-size: 16px;
 }
@@ -98,6 +98,24 @@ h1 {
     transform: translateY(-3px);
 }
 
+/* Dark Mode Toggle Button */
+#toggleDarkMode {
+    background-color: #8A2BE2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 16px;
+    margin-bottom: 20px; /* Space below the button */
+}
+
+#toggleDarkMode:hover {
+    background-color: #6f239d;
+    transform: translateY(-3px);
+}
+
 /* Search Results Styles */
 #searchResults {
     display: flex;
@@ -106,10 +124,10 @@ h1 {
 }
 
 .card {
-    background-color: #fff;
+    background-color: #1e1e1e; /* Fondo oscuro para las tarjetas */
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
     margin: 20px;
     width: 300px;
     text-align: left;
@@ -118,7 +136,7 @@ h1 {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2); /* Sombra más clara al pasar el mouse */
 }
 
 .card img {
@@ -126,10 +144,12 @@ h1 {
     height: 200px;
     object-fit: cover;
     transition: transform 0.5s ease;
+    filter: brightness(0.8); /* Oscurecer ligeramente las imágenes */
 }
 
 .card img:hover {
     transform: scale(1.05);
+    filter: brightness(1); /* Restaurar brillo al pasar el mouse */
 }
 
 .card-info {
@@ -138,12 +158,12 @@ h1 {
 
 .title {
     font-size: 1.5rem;
-    color: #333;
+    color: #f8f8f8; /* Texto claro */
     margin-bottom: 10px;
 }
 
 .subtitle {
-    color: #8A2BE2;
+    color: #8A2BE2; /* Mantener el color del subtítulo */
     font-weight: bold;
     margin-top: 10px;
 }
@@ -174,12 +194,12 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); 
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro */
     animation: fadeIn 0.5s ease;
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #222; /* Fondo del modal */
     margin: 10% auto;
     padding: 20px;
     border-radius: 20px;
@@ -205,13 +225,14 @@ h1 {
 /* Modal Title */
 #modalMealTitle {
     font-size: 1.8rem;
-    color: #333;
+    color: #f8f8f8; /* Texto claro */
     animation: fadeIn 0.5s ease;
 }
 
 #modalMealInstructions {
     font-size: 1rem;
     margin-top: 20px;
+    color: #ddd; /* Color del texto en el modal */
 }
 
 /* Footer */
@@ -219,6 +240,7 @@ footer {
     text-align: center;
     margin-top: 50px;
     font-size: 14px;
+    color: #f8f8f8; /* Texto claro en el footer */
 }
 
 footer a {
